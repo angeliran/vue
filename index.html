@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ol>
+            <li v-for="chamaco in chamacos">
+                {{chamaco.name}} : {{chamaco.role}}
+            </li>
+        </ol>
+
+        <hr>
+        <input type="text" v-model="chamaco_name"> <input type="text" v-model="chamaco_role">
+        <button @click="save">Save chamaco</button>
+        <hr>
+
+        <h1>{{name}}</h1>
+        <h1>{{lastname}}</h1>
+
+        <input type="text" v-model="name">
+
+        <hr>
+
+        <input type="number" v-model="num1"> <input type="number" v-model="num2"><button @click="suma">Suma</button>
+        <h1>La suma es: {{total}}</h1>
+
+        <hr>
+        <input type="text" v-model="age">
+        <h1 v-if="age < 18">No pase</h1>
+        <h1 v-else>Pase</h1>
+
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const { createApp } = Vue
+
+        const app = createApp({
+        data() {
+            return {
+                name: 'Angel Iran',
+                lastname: 'Solis Olguin',
+                num1: 0,
+                num2: 0,
+                total: 0,
+                age: '',
+                chamacos: [
+                    {name: "Iran", role: "front"},
+                    {name: "Duarte", role: "back"},
+                    {name: "David", role: "movil"}
+                ],
+                chamaco_name: '',
+                chamaco_role: '',
+            }
+        },
+        methods:{
+            suma(){
+                this.total = this.num1 + this.num2;
+            },
+            save(){
+                this.chamacos.push({name: this.chamaco_name, role: this.chamaco_role});
+            }
+        }
+        }).mount('#app')
+    </script>
+</body>
+</html>
