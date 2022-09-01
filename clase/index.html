@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <form>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" v-model="email">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" v-model="password">
+
+        <button type="button" @click="login">Enviar</button>
+      </form>
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+
+        const { createApp } = Vue
+
+        const app = createApp({
+        data() {
+            return {
+                users: [],
+                email: '',
+                password: '',
+            }
+        },
+        methods:{
+            login(e){
+                e.preventDefault();
+                var access = this.users.map((u)=>{
+                    if(this.email === u.email.toLowerCase()){
+                        if(this.password === u.password){
+                            return true;
+                        }
+                    }
+                    console.log(u.email.toLowerCase());
+                });
+                
+            }
+        },
+        mounted(){
+            fetch('../users.json')
+            .then(res => res.json())
+            .then(json => (this.users = json))
+            .catch((err) => (console.log(err)));
+        }
+        }).mount('#app')
+    </script>
+</body>
+</html>
